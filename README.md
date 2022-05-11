@@ -36,3 +36,7 @@
 Задача: Модель для предсказания оттока банковских клиентов.<br>
 Выполнено: Датасет очищен, признаки кодированы с помощью StandardScaler, использованы DecisionTreeClassifier, RandomForestClassifier, LogisticRegression. Гиперпараметры подобраны кроссвалидацией, применен апсемплинг для устранения дисбаланса классов, для оценки моделей использовалась ROC кривая, F1, accuracy. <br>
 Инструменты: pandas, sklearn, numpy, seaborn, matplotlib, accuracy_score, precision_score, recall_score, roc_auc_score, roc_curve, f1_score, StandardScaler, shuffle.
+
+# <a href="https://github.com/barni1987/Projects/blob/main/%D0%9E%D1%82%D1%82%D0%BE%D0%BA%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2.ipynb">8. Предсказание прибыли нефтедобывающей компании.<br></a>
+Задача: В избранном регионе собраны характеристики для скважин: качество нефти и объём её запасов. Построена модель для предсказания объёма запасов в новых скважинах, использована LinearRegression с метрикой RMSE. Определены скважины с самыми высокими оценками значений добычи. Рассчитаны точки безубыточности, риски убытков, выбран регион с максимальной суммарной прибылью отобранных скважин. <br>
+Инструменты: pandas, sklearn, numpy, matplotlib, mean_squared_error, StandardScaler.
