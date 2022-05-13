@@ -39,4 +39,4 @@
 
 # <a href="https://github.com/barni1987/Projects/blob/main/%D0%92%D1%8B%D0%B1%D0%BE%D1%80%20%D0%BB%D0%BE%D0%BA%D0%B0%D1%86%D0%B8%D0%B8%20%D0%B4%D0%BB%D1%8F%20%D1%81%D0%BA%D0%B2%D0%B0%D0%B6%D0%B8%D0%BD%D1%8B.ipynb">8. Предсказание прибыли нефтедобывающей компании.<br></a>
 Задача: В избранном регионе собраны характеристики для скважин: качество нефти и объём её запасов. Построена модель для предсказания объёма запасов в новых скважинах, использована LinearRegression с метрикой RMSE. Определены скважины с самыми высокими оценками значений добычи. Рассчитаны точки безубыточности, риски убытков, выбран регион с максимальной суммарной прибылью отобранных скважин. <br>
-Инструменты: pandas, sklearn, numpy, matplotlib, mean_squared_error, StandardScaler.
+Инструменты: <font color='green'> pandas, sklearn, numpy, matplotlib, mean_squared_error, StandardScaler</font>.
