@@ -52,7 +52,7 @@
 Выполнено: Подготовленный датасет превращен в матрицу и перемножен на случайную несингулярную обратную квадратную матрицу, с отделением целевого признака. Таким образом выполнено формирование ключа шифрования. На зашифрованном датасете произведены предсказания с использованием LinearRegression с проверкой по коэффициенту детерминации R2. <br>
 Инструменты: pandas, numpy, sklearn.
 
-# <a href="https://github.com/barni1987/Projects/blob/main/%D0%97%D0%B0%D1%89%D0%B8%D1%82%D0%B0%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2.ipynb">11. Предсказание цены автомобиля.<br></a>
+# <a href="https://github.com/barni1987/Projects/blob/main/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%BE%D0%B1%D0%B8%D0%BB%D0%B5%D0%B8%CC%86.ipynb">11. Предсказание цены автомобиля.<br></a>
 Задача: Модель предсказания цены подержанных автомобилей. <br>
 Выполнено: Проведен статанализ, данные очищены от выбросов. Выявлены важные признаки, лишние признаки удалены. Кодированы категориальные признаки. Обучены Linear Regression, Регрессия Ridge, DecisionTreeRegressor, CatBoostRegressor, LGBMRegressor с подбором параметров с помощью GridSearchCV. Отладка и сравнение по скорости и среднеквадратичной ошибке RMSE. <br>
 Инструменты: pandas, numpy, sklearn, train_test_split, StandardScaler, mean_squared_error, OrdinalEncode, GridSearchCV.
