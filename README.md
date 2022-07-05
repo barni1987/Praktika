@@ -56,3 +56,7 @@
 Задача: Модель предсказания цены подержанных автомобилей. <br>
 Выполнено: Проведен статанализ, данные очищены от выбросов. Выявлены важные признаки, лишние признаки удалены. Кодированы категориальные признаки. Обучены Linear Regression, Регрессия Ridge, DecisionTreeRegressor, CatBoostRegressor, LGBMRegressor с подбором параметров с помощью GridSearchCV. Отладка и сравнение по скорости и среднеквадратичной ошибке RMSE. <br>
 Инструменты: pandas, numpy, sklearn, train_test_split, StandardScaler, mean_squared_error, OrdinalEncode, GridSearchCV.
+
+# <a href="https://github.com/barni1987/Projects/blob/main/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%BE%D0%B1%D0%B8%D0%BB%D0%B5%D0%B8%CC%86.ipynb">12. Временные ряды для предсказания количества заказов такси.<br></a>
+Задача: Проведен анализ временного ряда по дням в рамках года, определен тренд и сезонность в течении недели и дня. Собрана модель для предсказания на несколько часов вперед в течении дня. Тестировались LinearRegression, CatBoost, LGBMRegressor метрикой RMSE. <br>
+Инструменты: pandas, numpy, sklearn, train_test_split, seasonal_decompose, TimeSeriesSplit, fbeta_score, make_scorer, pyplot.
