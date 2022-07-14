@@ -63,7 +63,7 @@
 Выполнено: Проведен анализ временного ряда по дням в рамках года, определен тренд и сезонность в течении недели и дня. Собрана модель для предсказания на несколько часов вперед в течении дня. Тестировались LinearRegression, CatBoost, LGBMRegressor метрикой RMSE. <br>
 Инструменты: pandas, numpy, sklearn, train_test_split, seasonal_decompose, TimeSeriesSplit, fbeta_score, make_scorer, pyplot.
 
-# <a href="https://github.com/barni1987/PraktukumDSProjects/blob/main/%D0%92%D0%B8%D0%BA%D0%B8%D1%88%D0%BE%D0%BF.ipynb">13. Классификация токсичных комментариев.<br></a>
+# <a href="https://github.com/barni1987/PraktukumDSProjects/blob/main/%D0%92%D0%B8%D0%BA%D0%B8%D1%88%D0%BE%D0%BF.ipynb">13.  Классификация токсичных комментариев.<br></a>
 Задача: Модель классификации токсичных комментариев. <br>
 Выполнено: Данные очищены от разделителей, приведены к регистру, проведена векторизация TfidfVectorizer. Список стоп слов загружен из nltk. Параметры подобраны кроссвалидацией, использовалась логистическая регрессия, BERT не использовалась в связи с нехваткой ресурсов. <br>
 Инструменты: pandas, numpy, WordNetLemmatizer, re, TfidfVectorizer, stopwords, train_test_split, f1_score, confusion_matrix, cross_val_score, GridSearchCV.
