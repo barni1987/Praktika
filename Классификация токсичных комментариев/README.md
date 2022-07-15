@@ -1,4 +1,4 @@
-# <a href="">Классификация токсичных комментариев.<br></a>
+# <a href="https://github.com/barni1987/PraktukumDSProjects/blob/main/%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F%20%D1%82%D0%BE%D0%BA%D1%81%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B5%D0%B2/%D0%92%D0%B8%D0%BA%D0%B8%D1%88%D0%BE%D0%BF.ipynb">Классификация токсичных комментариев.<br></a>
 Задача: Модель классификации токсичных комментариев. <br>
 Выполнено: Данные очищены от разделителей, приведены к регистру, проведена векторизация TfidfVectorizer. Список стоп слов загружен из nltk. Параметры подобраны кроссвалидацией, использовалась логистическая регрессия, BERT не использовалась в связи с нехваткой ресурсов. <br>
 Инструменты: pandas, numpy, WordNetLemmatizer, re, TfidfVectorizer, stopwords, train_test_split, f1_score, confusion_matrix, cross_val_score, GridSearchCV.
