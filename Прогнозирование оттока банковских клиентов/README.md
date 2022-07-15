@@ -1,1 +1,4 @@
-
+# <a href="https://github.com/barni1987/PraktukumDSProjects/blob/main/%D0%9F%D1%80%D0%BE%D0%B3%D0%BD%D0%BE%D0%B7%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BE%D1%82%D1%82%D0%BE%D0%BA%D0%B0%20%D0%B1%D0%B0%D0%BD%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2/%D0%9E%D1%82%D1%82%D0%BE%D0%BA%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2.ipynb">Прогнозирование оттока банковских клиентов.<br></a>
+Задача: Модель для предсказания оттока банковских клиентов.<br>
+Выполнено: Датасет очищен, признаки кодированы с помощью StandardScaler, использованы DecisionTreeClassifier, RandomForestClassifier, LogisticRegression. Гиперпараметры подобраны кроссвалидацией, применен апсемплинг для устранения дисбаланса классов, для оценки моделей использовалась ROC кривая, F1, accuracy. <br>
+Инструменты: pandas, sklearn, numpy, seaborn, matplotlib, accuracy_score, precision_score, recall_score, roc_auc_score, roc_curve, f1_score, StandardScaler, shuffle.
