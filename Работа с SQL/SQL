@@ -1,1 +1,265 @@
+1. Посчитайте, сколько компаний закрылось.
+SELECT COUNT(status)      
+FROM company
+WHERE status = 'closed';
 
+2. Отобразите количество привлечённых средств для новостных компаний США. Используйте данные из таблицы company. Отсортируйте таблицу по убыванию значений в поле funding_total .
+SELECT funding_total
+FROM company
+WHERE category_code = 'news' AND country_code = 'USA'
+ORDER BY funding_total DESC;
+
+3. Найдите общую сумму сделок по покупке одних компаний другими в долларах. Отберите сделки, которые осуществлялись только за наличные с 2011 по 2013 год включительно.
+SELECT SUM(price_amount)
+FROM acquisition
+WHERE acquired_at BETWEEN '2011-01-01' AND '2013-12-31' AND term_code = 'cash'; 
+
+4. Отобразите имя, фамилию и названия аккаунтов людей в твиттере, у которых названия аккаунтов начинаются на 'Silver'.
+SELECT first_name,
+       last_name,
+       twitter_username
+FROM people
+WHERE twitter_username  LIKE 'Silver%'; 
+
+5.Выведите на экран всю информацию о людях, у которых названия аккаунтов в твиттере содержат подстроку 'money', а фамилия начинается на 'K'.
+SELECT *
+FROM people
+WHERE twitter_username  LIKE '%money%' 
+       AND last_name LIKE '%Kim%'; 
+
+6. Для каждой страны отобразите общую сумму привлечённых инвестиций, которые получили компании, зарегистрированные в этой стране. Страну, в которой зарегистрирована компания, можно определить по коду страны. Отсортируйте данные по убыванию суммы.
+SELECT  country_code, 
+        SUM(funding_total)
+FROM company
+GROUP BY  country_code
+ORDER BY SUM(funding_total) DESC;
+
+7. Составьте таблицу, в которую войдёт дата проведения раунда, а также минимальное и максимальное значения суммы инвестиций, привлечённых в эту дату.
+Оставьте в итоговой таблице только те записи, в которых минимальное значение суммы инвестиций не равно нулю и не равно максимальному значению.
+SELECT  funded_at, 
+        MIN(raised_amount) AS min_raised_amount,
+        MAX(raised_amount) AS max_raised_amount
+FROM funding_round
+GROUP BY funded_at
+HAVING MIN(raised_amount) != 0 AND MIN(raised_amount) != MAX(raised_amount);
+
+8. Создайте поле с категориями:
+Для фондов, которые инвестируют в 100 и более компаний, назначьте категорию high_activity.
+Для фондов, которые инвестируют в 20 и более компаний до 100, назначьте категорию middle_activity.
+Если количество инвестируемых компаний фонда не достигает 20, назначьте категорию low_activity.
+Отобразите все поля таблицы fund и новое поле с категориями.
+SELECT id, name,	founded_at,	domain,	twitter_username,	country_code,	investment_rounds,	milestones,	created_at,	updated_at,
+       invested_companies,
+       CASE
+           WHEN invested_companies >= 100 THEN 'high_activity'
+           WHEN invested_companies >= 20 AND invested_companies < 100  THEN 'middle_activity'
+           WHEN invested_companies <= 20 AND invested_companies >= 0 THEN 'low_activity'
+       END
+FROM fund;
+
+9. Для каждой из категорий, назначенных в предыдущем задании, посчитайте округлённое до ближайшего целого числа среднее количество инвестиционных раундов, в которых фонд принимал участие. Выведите на экран категории и среднее число инвестиционных раундов. Отсортируйте таблицу по возрастанию среднего.
+SELECT ROUND(AVG(investment_rounds)),
+       CASE
+           WHEN invested_companies >= 100 THEN 'high_activity'
+           WHEN invested_companies >= 20 AND invested_companies < 100  THEN 'middle_activity'
+           WHEN invested_companies <= 20 AND invested_companies >= 0 THEN 'low_activity'
+       END
+FROM fund
+GROUP BY invested_companies,investment_rounds
+ORDER BY ROUND(AVG(investment_rounds));
+
+10. Выгрузите таблицу с десятью самыми активными инвестирующими странами. Активность страны определите по среднему количеству компаний, в которые инвестируют фонды этой страны.
+Для каждой страны посчитайте минимальное, максимальное и среднее число компаний, в которые инвестировали фонды, основанные с 2010 по 2012 год включительно.
+Исключите из таблицы страны с фондами, у которых минимальное число компаний, получивших инвестиции, равно нулю. Отсортируйте таблицу по среднему количеству компаний от большего к меньшему, а затем по коду страны в лексикографическом порядке.
+Для фильтрации диапазона по годам используйте оператор BETWEEN.
+select country_code
+	  ,min(comp_cnt)
+	  ,max(comp_cnt)
+	  ,avg(comp_cnt)
+  from (select f.country_code
+			  ,f.id
+			  ,count(distinct i.company_id) comp_cnt
+		  from fund f left join investment i on f.id = i.fund_id
+		 where extract(year from f.founded_at) between 2010 and 2012
+		 group by f.country_code
+			  ,f.id) tt
+ group by country_code
+having min(comp_cnt) > 0
+ order by avg(comp_cnt) desc
+	  ,country_code
+ limit 10
+ 
+11. Отобразите имя и фамилию всех сотрудников стартапов. Добавьте поле с названием учебного заведения, которое окончил сотрудник, если эта информация известна.
+ select first_name
+	  ,last_name
+	  ,instituition
+  from people p left join education e on p.id = e.person_id
+  
+12. Для каждой компании найдите количество учебных заведений, которые окончили её сотрудники. Выведите название компании и число уникальных названий учебных заведений. Составьте топ-5 компаний по количеству университетов.
+select c.name
+      ,count(distinct e.instituition) cnt
+  from company c left join people p on c.id = p.company_id
+       left join education e on p.id = e.person_id
+ group by c.id
+      ,c.name
+ order by cnt desc 
+ limit 5
+ 
+13. Составьте список с уникальными названиями закрытых компаний, для которых первый раунд финансирования оказался последним.
+select distinct c.name
+  from company c join funding_round fr on c.id = fr.company_id
+ where c.status = 'closed'
+   and fr.is_first_round = 1
+   and fr.is_last_round = 1
+   
+14. Составьте список уникальных номеров сотрудников, которые работают в компаниях, отобранных в предыдущем задании.
+select p.id 
+  from (select distinct c.id
+		  from company c join funding_round fr on c.id = fr.company_id
+		 where c.status = 'closed'
+		   and fr.is_first_round = 1
+		   and fr.is_last_round = 1) t 
+	    join people p on t.id = p.company_id
+      
+15. Составьте таблицу, куда войдут уникальные пары с номерами сотрудников из предыдущей задачи и учебным заведением, которое окончил сотрудник.
+select distinct p.id 
+	  ,e.instituition
+  from (select distinct c.id
+		  from company c join funding_round fr on c.id = fr.company_id
+		 where c.status = 'closed'
+		   and fr.is_first_round = 1
+		   and fr.is_last_round = 1) t 
+	    join people p on t.id = p.company_id  
+	    join education e on p.id = e.person_id
+      
+16. Посчитайте количество учебных заведений для каждого сотрудника из предыдущего задания.
+select p.id 
+	  ,count(e.instituition)
+  from (select distinct c.id
+		  from company c join funding_round fr on c.id = fr.company_id
+		 where c.status = 'closed'
+		   and fr.is_first_round = 1
+		   and fr.is_last_round = 1) t 
+	    join people p on t.id = p.company_id  
+	    join education e on p.id = e.person_id 
+ group by p.id
+ 
+17. Дополните предыдущий запрос и выведите среднее число учебных заведений (всех, не только уникальных), которые окончили сотрудники разных компаний. Нужно вывести только одну запись, группировка здесь не понадобится.
+select avg(cnt)
+  from (select p.id 
+			  ,count(e.instituition) cnt
+		  from (select distinct c.id
+				  from company c join funding_round fr on c.id = fr.company_id
+				 where c.status = 'closed'
+				   and fr.is_first_round = 1
+				   and fr.is_last_round = 1) t 
+			    join people p on t.id = p.company_id  
+			    join education e on p.id = e.person_id 
+		 group by p.id) tt
+     
+18. Напишите похожий запрос: выведите среднее число учебных заведений (всех, не только уникальных), которые окончили сотрудники Facebook.
+select avg(cnt)
+  from (select p.id 
+			  ,count(e.instituition) cnt
+		  from company c 
+			    join people p on c.id = p.company_id  
+			    join education e on p.id = e.person_id 
+	     where c.name = 'Facebook'
+		 group by p.id) tt
+     
+19. Составьте таблицу из полей:
+name_of_fund — название фонда;
+name_of_company — название компании;
+amount — сумма инвестиций, которую привлекла компания в раунде.
+В таблицу войдут данные о компаниях, в истории которых было больше шести важных этапов, а раунды финансирования проходили с 2012 по 2013 год включительно.
+select f.name name_of_fund
+      ,c.name name_of_company
+      ,fr.raised_amount amount
+  from funding_round fr join company c on c.id = fr.company_id
+       join investment i on i.funding_round_id = fr.id
+       join fund f on f.id = i.fund_id
+ where extract(year from fr.funded_at) between 2012 and 2013
+   and c.milestones > 6
+   
+20. Выгрузите таблицу, в которой будут такие поля:
+название компании-покупателя;
+сумма сделки;
+название компании, которую купили;
+сумма инвестиций, вложенных в купленную компанию;
+доля, которая отображает, во сколько раз сумма покупки превысила сумму вложенных в компанию инвестиций, округлённая до ближайшего целого числа.
+Не учитывайте те сделки, в которых сумма покупки равна нулю. Если сумма инвестиций в компанию равна нулю, исключите такую компанию из таблицы.
+Отсортируйте таблицу по сумме сделки от большей к меньшей, а затем по названию купленной компании в лексикографическом порядке. Ограничьте таблицу первыми десятью записями.
+select c1.name 
+      ,a.price_amount
+      ,c2.name
+      ,c2.funding_total
+      ,round(a.price_amount/c2.funding_total)
+  from acquisition a join company c1 on a.acquiring_company_id = c1.id
+       join company c2 on a.acquired_company_id = c2.id
+ where c2.funding_total > 0
+   and a.price_amount > 0
+ order by a.price_amount desc 
+      ,c2.name
+ limit 10
+ 
+21. Выгрузите таблицу, в которую войдут названия компаний из категории social, получившие финансирование с 2010 по 2013 год включительно. Выведите также номер месяца, в котором проходил раунд финансирования.
+ select c.name
+      ,extract(month from fr.funded_at)
+  from company c join funding_round fr on c.id = fr.company_id
+ where c.category_code = 'social'
+   and extract(year from fr.funded_at) between 2010 and 2013
+   and fr.raised_amount > 0
+   
+22. Отберите данные по месяцам с 2010 по 2013 год, когда проходили инвестиционные раунды. Сгруппируйте данные по номеру месяца и получите таблицу, в которой будут поля:
+номер месяца, в котором проходили раунды;
+количество уникальных названий фондов из США, которые инвестировали в этом месяце;
+количество компаний, купленных за этот месяц;
+общая сумма сделок по покупкам в этом месяце.
+with m as (
+select distinct extract(month from fr.funded_at) m
+  from funding_round fr 
+ where extract(year from fr.funded_at) between 2010 and 2013
+)
+select m.m
+      ,coalesce(tf.cnt,0) cnt1
+      ,coalesce(ta.cnt,0) cnt2
+      ,coalesce(ta.s,0) s
+  from m left join 
+       (select extract(month from fr.funded_at) m 
+               ,count(distinct f.name) cnt 
+          from funding_round fr join investment i on fr.id = i.funding_round_id 
+               join fund f on i.fund_id = f.id
+         where f.country_code = 'USA'
+           and extract(year from fr.funded_at) between 2010 and 2013
+         group by extract(month from fr.funded_at)) tf on tf.m = m.m
+        left join 
+        (select extract(month from acquired_at) m 
+               ,count(1) cnt
+               ,sum(price_amount) s
+           from acquisition a
+          where extract(year from acquired_at) between 2010 and 2013
+          group by extract(month from acquired_at)) ta on ta.m = m.m
+          
+23. Составьте сводную таблицу и выведите среднюю сумму инвестиций для стран, в которых есть стартапы, зарегистрированные в 2011, 2012 и 2013 годах. Данные за каждый год должны быть в отдельном поле. Отсортируйте таблицу по среднему значению инвестиций за 2011 год от большего к меньшему.
+select t11.country_code
+	  ,t11.s
+	  ,t12.s
+	  ,t13.s
+  from (select country_code
+              ,coalesce(avg(funding_total),0) s
+		  from company c 
+		 where extract(year from c.founded_at) = 2011
+		 group by country_code) t11
+		join 
+		(select country_code
+              ,coalesce(avg(funding_total),0) s
+		  from company c 
+		 where extract(year from c.founded_at) = 2012
+		 group by country_code) t12  on t11.country_code = t12.country_code
+		join 
+		(select country_code
+              ,coalesce(avg(funding_total),0) s
+		  from company c 
+		 where extract(year from c.founded_at) = 2013
+		 group by country_code) t13  on t11.country_code = t13.country_code
+ order by t11.s desc
