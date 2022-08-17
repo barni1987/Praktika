@@ -76,3 +76,8 @@
 **Задача:  Работа с базой данных, которая хранит информацию о венчурных фондах и инвестициях в компании-стартапы. <br><br>**
 Выполнено: Запросы к БД. Эта база данных основана на датасете Startup Investments, опубликованном на популярной платформе для соревнований по исследованию данных Kaggle. <br><br>
 **Инструменты: ![](https://img.shields.io/static/v1?label=&message=SQL&color=green), ![](https://img.shields.io/static/v1?label=&message=СУБД&color=green), ![](https://img.shields.io/static/v1?label=&message=PostgreSQL&color=green).**
+
+### <a href="https://github.com/barni1987/PraktukumDSProjects/blob/main/%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D1%81%20SQL/SQL">15. .<br></a>
+**Задача:  Работа с базой данных, которая хранит информацию о венчурных фондах и инвестициях в компании-стартапы. <br><br>**
+Выполнено: Запросы к БД. Эта база данных основана на датасете Startup Investments, опубликованном на популярной платформе для соревнований по исследованию данных Kaggle. <br><br>
+**Инструменты: ![](https://img.shields.io/static/v1?label=&message=SQL&color=green), ![](https://img.shields.io/static/v1?label=&message=СУБД&color=green), ![](https://img.shields.io/static/v1?label=&message=PostgreSQL&color=green).**
